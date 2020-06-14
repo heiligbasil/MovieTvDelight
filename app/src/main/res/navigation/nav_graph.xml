@@ -25,4 +25,10 @@
         android:label="saved_fragment"
         tools:layout="@layout/saved_fragment" />
 
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.heiligbasil.movietvdelight.AboutFragment"
+        android:label="about_fragment"
+        tools:layout="@layout/about_fragment" />
+
 </navigation>
