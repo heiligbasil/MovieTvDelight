@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_browse">
+
+    <fragment
+        android:id="@+id/nav_browse"
+        android:name="com.heiligbasil.movietvdelight.BrowseFragment"
+        android:label="browse_fragment"
+        tools:layout="@layout/browse_fragment" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.heiligbasil.movietvdelight.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" />
+
+    <fragment
+        android:id="@+id/nav_saved"
+        android:name="com.heiligbasil.movietvdelight.SavedFragment"
+        android:label="saved_fragment"
+        tools:layout="@layout/saved_fragment" />
 
 </navigation>

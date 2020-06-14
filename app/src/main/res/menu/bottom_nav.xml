@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/browseFragment"
+        android:id="@+id/nav_browse"
         android:icon="@drawable/ic_browse"
         android:title="Browse" />
+
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/nav_search"
         android:icon="@drawable/ic_search"
         android:title="Search" />
+
     <item
-        android:id="@+id/savedFragment"
+        android:id="@+id/nav_saved"
         android:icon="@drawable/ic_saved"
         android:title="Saved" />
+
 </menu>
