@@ -7,7 +7,7 @@
     android:id="@+id/fragment_about_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutFragment">
+    tools:context=".view.AboutFragment">
 
     <TextView
         android:id="@+id/textView4"

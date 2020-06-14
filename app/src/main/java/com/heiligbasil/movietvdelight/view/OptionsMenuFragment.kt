@@ -1,4 +1,4 @@
-package com.heiligbasil.movietvdelight
+package com.heiligbasil.movietvdelight.view
 
 import android.view.Menu
 import android.view.MenuInflater
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.heiligbasil.movietvdelight.R
 
 open class OptionsMenuFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -1,4 +1,4 @@
-package com.heiligbasil.movietvdelight
+package com.heiligbasil.movietvdelight.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.heiligbasil.movietvdelight.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
             .setupWithNavController(navController)
-BuildConfig.API_KEY
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.nav_about) {
                 bottom_navigation_view.visibility = View.GONE

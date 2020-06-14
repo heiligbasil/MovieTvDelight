@@ -1,9 +1,10 @@
-package com.heiligbasil.movietvdelight
+package com.heiligbasil.movietvdelight.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.heiligbasil.movietvdelight.R
 
 class BrowseFragment : OptionsMenuFragment() {
     override fun onCreateView(
