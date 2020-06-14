@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
             .setupWithNavController(navController)
-
+BuildConfig.API_KEY
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.nav_about) {
                 bottom_navigation_view.visibility = View.GONE
