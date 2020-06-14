@@ -12,6 +12,6 @@ class SearchFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.search_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
 }

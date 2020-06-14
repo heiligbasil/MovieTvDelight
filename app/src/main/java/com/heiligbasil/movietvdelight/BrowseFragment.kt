@@ -12,7 +12,7 @@ class BrowseFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.browse_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_browse, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -11,24 +11,24 @@
         android:id="@+id/nav_browse"
         android:name="com.heiligbasil.movietvdelight.BrowseFragment"
         android:label="browse_fragment"
-        tools:layout="@layout/browse_fragment" />
+        tools:layout="@layout/fragment_browse" />
 
     <fragment
         android:id="@+id/nav_search"
         android:name="com.heiligbasil.movietvdelight.SearchFragment"
         android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/nav_saved"
         android:name="com.heiligbasil.movietvdelight.SavedFragment"
         android:label="saved_fragment"
-        tools:layout="@layout/saved_fragment" />
+        tools:layout="@layout/fragment_saved" />
 
     <fragment
         android:id="@+id/nav_about"
         android:name="com.heiligbasil.movietvdelight.AboutFragment"
         android:label="about_fragment"
-        tools:layout="@layout/about_fragment" />
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

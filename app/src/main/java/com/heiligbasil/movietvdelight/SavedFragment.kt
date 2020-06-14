@@ -12,7 +12,7 @@ class SavedFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.saved_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_saved, container, false)
     }
 
 }
