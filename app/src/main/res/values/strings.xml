@@ -3,4 +3,5 @@
     <string name="language_en_us">enUS</string>
     <string name="browse_top_rated_movies">Top Rated Movies</string>
     <string name="browse_top_rated_tv_shows">Top Rated TV Shows</string>
+    <string name="browse_image_content_description">poster_image</string>
 </resources>
