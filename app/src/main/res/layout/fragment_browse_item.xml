@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:id="@+id/browse_recycler_view_image"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/browse_image_content_description"
+                android:elevation="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="W,2:3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/browse_recycler_view_text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is dummy text"
+                app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/browse_recycler_view_text_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is dummy text"
+                app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
+                app:layout_constraintTop_toBottomOf="@id/browse_recycler_view_text_title" />
+
+            <TextView
+                android:id="@+id/browse_recycler_view_text_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is dummy text"
+                app:layout_constraintStart_toEndOf="@id/browse_recycler_view_text_year"
+                app:layout_constraintTop_toBottomOf="@id/browse_recycler_view_text_title" />
+
+            <TextView
+                android:id="@+id/browse_recycler_view_text_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is dummy text"
+                app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
+                app:layout_constraintTop_toBottomOf="@id/browse_recycler_view_text_year" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
