@@ -1,5 +1,6 @@
 package com.heiligbasil.movietvdelight.model.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 
@@ -15,5 +16,5 @@ interface MovieDao {
     suspend fun deleteMovie(movie: MovieEssentials): Int
 
     @Query("SELECT * FROM movie_table")
-    fun getAllMovies(): List<MovieEssentials>
+    fun getAllMovies(): LiveData<List<MovieEssentials>>
 }

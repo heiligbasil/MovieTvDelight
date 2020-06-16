@@ -1,7 +1,6 @@
 package com.heiligbasil.movietvdelight.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseBinding
-import com.heiligbasil.movietvdelight.model.BrowseRepository
+import com.heiligbasil.movietvdelight.model.MovieRepository
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRated
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
+import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.Retrofit
 import com.heiligbasil.movietvdelight.model.remote.MtdService
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
@@ -25,7 +25,7 @@ import retrofit2.Response
 
 class BrowseFragment : OptionsMenuFragment() {
 
-    private lateinit var binding:FragmentBrowseBinding
+    private lateinit var binding: FragmentBrowseBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,21 +33,21 @@ class BrowseFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_browse,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_browse, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val repository=BrowseRepository()
-        val factory=BrowseViewModelFactory(repository)
-        val viewModel=ViewModelProvider(this,factory).get(BrowseViewModel::class.java)
-        binding.browseViewModel=viewModel
-        binding.lifecycleOwner=this
-        binding.browseRecyclerViewContainer.layoutManager=LinearLayoutManager(view.context)
-        val adapter=BrowseMovieAdapter{viewModel.init(it)}
-        binding.browseRecyclerViewContainer.adapter=adapter
+        val dao = MovieDatabase.getInstance(view.context).movieDao
+        val repository = MovieRepository(dao)
+        val factory = BrowseViewModelFactory(repository)
+        val viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
+        binding.browseViewModel = viewModel
+        binding.lifecycleOwner = this
+        binding.browseRecyclerViewContainer.layoutManager = LinearLayoutManager(view.context)
+        val adapter = BrowseMovieAdapter { viewModel.init(it) }
+        binding.browseRecyclerViewContainer.adapter = adapter
 
         browse_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -70,7 +70,7 @@ class BrowseFragment : OptionsMenuFragment() {
                     mtrResponse.observe(viewLifecycleOwner, Observer {
                         val mtr = it.body()
                         val topRatedMoviesIterator = mtr?.results?.listIterator()
-                        val topRatedMovies=ArrayList<MovieTopRatedResult>()
+                        val topRatedMovies = ArrayList<MovieTopRatedResult>()
                         if (topRatedMoviesIterator !== null) {
                             while (topRatedMoviesIterator.hasNext()) {
                                 val topRatedMovie = topRatedMoviesIterator.next()
