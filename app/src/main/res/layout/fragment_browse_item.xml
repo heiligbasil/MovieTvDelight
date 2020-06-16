@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/fragment_browse_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
@@ -27,6 +28,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="32dp"
                 android:scaleType="centerCrop"
+                android:transitionName="hgfd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="W,2:3"
                 app:layout_constraintStart_toStartOf="parent"

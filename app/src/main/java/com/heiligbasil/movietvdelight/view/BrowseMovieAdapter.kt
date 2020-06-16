@@ -1,8 +1,13 @@
 package com.heiligbasil.movietvdelight.view
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
@@ -42,6 +47,33 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
             binding.browseRecyclerViewTextYear.text = movie.releaseDate.substring(0..3)
             binding.browseRecyclerViewTextLanguage.text = movie.originalLanguage
             binding.browseRecyclerViewTextOverview.text = movie.overview
+
+            binding.fragmentBrowseItemLayout.setOnClickListener {
+                ViewCompat.setTransitionName(binding.browseRecyclerViewImage,"dada")
+//                ViewCompat.setTransitionName(binding.browseRecyclerViewTextTitle,movie.title)
+//                binding.browseRecyclerViewImage.transitionName="poster_image"
+                /*val transitionName =
+                    ViewCompat.getTransitionName(binding.browseRecyclerViewImage).toString()*/
+                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    binding.root.context as Activity,
+                    binding.browseRecyclerViewImage,
+                    "dada"
+                ).toBundle()
+                bundle?.putString("img", movie.posterPath)
+                val extras = FragmentNavigatorExtras(
+                    binding.browseRecyclerViewImage to movie.posterPath
+                )
+//                val directions =
+//                    BrowseFragmentDirections.actionNavBrowseToNavDetails(
+//                        movie.posterPath,
+//                        movie.title
+//                    )
+//                val args=DetailsFragmentArgs(binding.browseRecyclerViewImage.transitionName,
+//                binding.browseRecyclerViewTextTitle.transitionName).toBundle()
+                it.findNavController()
+                    .navigate(R.id.nav_details,bundle,null,extras)
+//                    .navigate(R.id.action_nav_browse_to_nav_details, bundle, null, extras)
+            }
         }
     }
 }

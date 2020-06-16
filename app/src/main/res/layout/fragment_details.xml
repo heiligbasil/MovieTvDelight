@@ -37,6 +37,7 @@
                 android:contentDescription="@string/browse_image_content_description"
                 android:elevation="16dp"
                 android:scaleType="centerCrop"
+                android:transitionName="dada"
                 app:layout_constraintDimensionRatio="W,2:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
