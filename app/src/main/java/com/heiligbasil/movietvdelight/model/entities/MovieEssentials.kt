@@ -7,15 +7,12 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movie_table")
 data class MovieEssentials(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "movie_auto_id")
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "movie_id")
     val id: Int,
 
     @ColumnInfo(name = "movie_backdrop_path")
     val backdropPath: String,
-
-    @ColumnInfo(name = "movie_id")
-    val movieId: Int,
 
     @ColumnInfo(name = "movie_original_language")
     val originalLanguage: String,
@@ -36,5 +33,8 @@ data class MovieEssentials(
     val title: String,
 
     @ColumnInfo(name = "movie_vote_average")
-    val voteAverage: Double
+    val voteAverage: Double,
+
+    @ColumnInfo(name = "movie_saved")
+    val saved: Boolean
 )
