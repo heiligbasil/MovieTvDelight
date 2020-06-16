@@ -2,8 +2,7 @@
 
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -41,7 +40,7 @@
                 app:layout_constraintDimensionRatio="W,2:3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                bind:posterPath="@{movie.posterPath}" />
+                app:posterPath="@{movie.posterPath}" />
 
             <TextView
                 android:id="@+id/browse_recycler_view_text_title"

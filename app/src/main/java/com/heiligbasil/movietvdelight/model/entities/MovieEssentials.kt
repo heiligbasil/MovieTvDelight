@@ -52,9 +52,9 @@ data class MovieEssentials(
 ) : BaseObservable(), Parcelable {
     companion object {
         @JvmStatic
-        @BindingAdapter("posterPath")
-        fun loadPoster(imageView: ImageView, url: String) {
-            val posterUrl = Retrofit.buildPosterUrl(url)
+        @BindingAdapter("app:posterPath", "app:largeSize", requireAll = false)
+        fun loadPoster(imageView: ImageView, url: String, largeSize: Boolean = false) {
+            val posterUrl = Retrofit.buildPosterUrl(url, large = largeSize)
             Picasso.get().load(posterUrl).into(imageView)
         }
     }
