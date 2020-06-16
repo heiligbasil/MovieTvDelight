@@ -1,6 +1,13 @@
 package com.heiligbasil.movietvdelight.model.entities
 
+/**
+ * Static class to hold Kotlin extension functions
+ */
 object ConvertMovieEntities {
+
+    /**
+     * Convert an object of type **MovieTopRatedResult** to **MovieEssentials**
+     */
     fun MovieTopRatedResult.toMovieEssentials() = MovieEssentials(
         id = movieId,
         backdropPath = backdropPath,
@@ -14,6 +21,9 @@ object ConvertMovieEntities {
         saved = false
     )
 
+    /**
+     * Convert an object of type **MovieEssentials** to **MovieTopRatedResult**
+     */
     fun MovieEssentials.toMovieTopRatedResult() = MovieTopRatedResult(
         adult = false,
         backdropPath = backdropPath,
