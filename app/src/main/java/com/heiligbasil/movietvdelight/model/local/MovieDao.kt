@@ -1,19 +1,19 @@
 package com.heiligbasil.movietvdelight.model.local
 
 import androidx.room.*
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
+import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 
 @Dao
 interface MovieDao {
     @Insert
-    suspend fun insertMovie(movie: MovieTopRatedResult): Long
+    suspend fun insertMovie(movie: MovieEssentials): Long
 
     @Update
-    suspend fun updateMovie(movie: MovieTopRatedResult): Int
+    suspend fun updateMovie(movie: MovieEssentials): Int
 
     @Delete
-    suspend fun deleteMovie(movie: MovieTopRatedResult): Int
+    suspend fun deleteMovie(movie: MovieEssentials): Int
 
     @Query("SELECT * FROM movie_table")
-    fun getAllMovies(): List<MovieTopRatedResult>
+    fun getAllMovies(): List<MovieEssentials>
 }

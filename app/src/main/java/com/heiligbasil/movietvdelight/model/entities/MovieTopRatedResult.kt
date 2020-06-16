@@ -11,7 +11,8 @@ data class MovieTopRatedResult(
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
 
-    val id: Int,
+    @SerializedName("id")
+    val movieId: Int,
 
     @SerializedName("original_language")
     val originalLanguage: String,

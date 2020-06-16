@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
+import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 
-@Database(entities = [MovieTopRatedResult::class], version = 1)
+@Database(entities = [MovieEssentials::class], version = 1)
 abstract class MovieDatabase : RoomDatabase() {
     abstract val movieDao: MovieDao
 
