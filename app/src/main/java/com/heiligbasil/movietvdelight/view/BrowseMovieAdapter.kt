@@ -68,10 +68,10 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
 //                        movie.posterPath,
 //                        movie.title
 //                    )
-//                val args=DetailsFragmentArgs(binding.browseRecyclerViewImage.transitionName,
+                val args=DetailsFragmentArgs(movie.posterPath).toBundle()
 //                binding.browseRecyclerViewTextTitle.transitionName).toBundle()
                 it.findNavController()
-                    .navigate(R.id.nav_details,bundle,null,extras)
+                    .navigate(R.id.nav_details,args,null,extras)
 //                    .navigate(R.id.action_nav_browse_to_nav_details, bundle, null, extras)
             }
         }

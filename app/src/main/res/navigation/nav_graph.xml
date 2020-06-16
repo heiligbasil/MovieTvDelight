@@ -11,7 +11,11 @@
         android:id="@+id/nav_browse"
         android:name="com.heiligbasil.movietvdelight.view.BrowseFragment"
         android:label="browse_fragment"
-        tools:layout="@layout/fragment_browse" />
+        tools:layout="@layout/fragment_browse" >
+        <action
+            android:id="@+id/action_nav_browse_to_nav_details2"
+            app:destination="@id/nav_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_search"
