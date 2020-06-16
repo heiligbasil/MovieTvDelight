@@ -3,6 +3,7 @@ package com.heiligbasil.movietvdelight.view
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.navigation.fragment.navArgs
 import com.heiligbasil.movietvdelight.R
@@ -49,5 +50,20 @@ class DetailsFragment : OptionsMenuFragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         menu[1].isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.title == getString(R.string.options_menu_saved)) {
+            item.icon = context?.let {
+                if (item.isChecked) {
+                    item.isChecked = false
+                    ContextCompat.getDrawable(it, R.drawable.ic_save)
+                } else {
+                    item.isChecked = true
+                    ContextCompat.getDrawable(it, R.drawable.ic_saved)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
