@@ -2,7 +2,15 @@
 
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />
+    </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/fragment_browse_item_layout"
@@ -32,12 +40,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="W,2:3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                bind:posterPath="@{movie.posterPath}" />
 
             <TextView
                 android:id="@+id/browse_recycler_view_text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{movie.title}"
                 app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +55,7 @@
                 android:id="@+id/browse_recycler_view_text_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{movie.year}"
                 app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
                 app:layout_constraintTop_toBottomOf="@id/browse_recycler_view_text_title" />
 
@@ -53,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:text="@{movie.language}"
                 app:layout_constraintStart_toEndOf="@id/browse_recycler_view_text_year"
                 app:layout_constraintTop_toBottomOf="@id/browse_recycler_view_text_title" />
 
@@ -62,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:ellipsize="end"
                 android:maxLines="4"
+                android:text="@{movie.overview}"
                 android:textAlignment="textStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/browse_recycler_view_image"
