@@ -7,23 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseBinding
-import com.heiligbasil.movietvdelight.model.MovieRepository
+import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRated
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
-import com.heiligbasil.movietvdelight.model.remote.Retrofit
-import com.heiligbasil.movietvdelight.model.remote.MtdService
+import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_browse.*
-import retrofit2.Response
-import com.heiligbasil.movietvdelight.model.entities.ConvertMovieEntities.toMovieEssentials
 
 class BrowseFragment : OptionsMenuFragment() {
 
@@ -44,12 +38,12 @@ class BrowseFragment : OptionsMenuFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dao = MovieDatabase.getInstance(view.context).movieDao
-        val repository = MovieRepository(dao)
-        val factory = BrowseViewModelFactory(repository)
+        val localRepository = LocalRepository(dao)
+        val remoteRepository = RemoteRepository(viewLifecycleOwner)
+        val factory = BrowseViewModelFactory(localRepository, remoteRepository)
         viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
         binding.browseViewModel = viewModel
         binding.lifecycleOwner = this
-        initRecyclerView()
 
         browse_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -60,16 +54,18 @@ class BrowseFragment : OptionsMenuFragment() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
-                val tmdbService = Retrofit.getInstance().create(MtdService::class.java)
+                initRecyclerView()
+
 
                 if (tab?.text.toString().equals(getString(R.string.browse_top_rated_movies))) {
 
-                    val mtrResponse = liveData<Response<MovieTopRated>> {
+                    /*val tmdbService = Retrofit.getInstance().create(MtdService::class.java)
+                        val mtrResponse = liveData<Response<MovieTopRated>> {
                         val response = tmdbService.getTopRatedMovies(Retrofit.apiKey, "enUS", 1)
                         emit(response)
-                    }
+                    }*/
 
-                    mtrResponse.observe(viewLifecycleOwner, Observer {
+                    /*mtrResponse.observe(viewLifecycleOwner, Observer {
                         val mtr = it.body()
                         val topRatedMoviesIterator = mtr?.results?.listIterator()
                         val movies = ArrayList<MovieEssentials>()
@@ -81,7 +77,8 @@ class BrowseFragment : OptionsMenuFragment() {
                             adapter.setList(movies)
                             adapter.notifyDataSetChanged()
                         }
-                    })
+                    })*/
+
                 } else {
 
                 }
@@ -107,7 +104,7 @@ class BrowseFragment : OptionsMenuFragment() {
     }
 
     private fun addListOfMovies() {
-        viewModel.movies.observe(viewLifecycleOwner, Observer {
+        viewModel.remoteMovies.observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
             adapter.notifyDataSetChanged()
         })

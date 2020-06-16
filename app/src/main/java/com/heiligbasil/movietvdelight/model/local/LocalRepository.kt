@@ -1,9 +1,9 @@
-package com.heiligbasil.movietvdelight.model
+package com.heiligbasil.movietvdelight.model.local
 
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.model.local.MovieDao
 
-class MovieRepository(private val dao: MovieDao) {
+class LocalRepository(private val dao: MovieDao) {
     val movies = dao.getAllMovies()
 
     suspend fun insert(movie: MovieEssentials): Long {
