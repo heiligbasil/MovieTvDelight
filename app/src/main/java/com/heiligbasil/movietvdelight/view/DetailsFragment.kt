@@ -2,9 +2,8 @@ package com.heiligbasil.movietvdelight.view
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.get
 import androidx.navigation.fragment.navArgs
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.model.remote.Retrofit
@@ -43,6 +42,12 @@ class DetailsFragment : OptionsMenuFragment() {
         Picasso.get().load(createImageUrl)
             .into(fragment_details_image)
 //        fragment_details_text_title.text="The Shawshank Redemption"
+
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        menu[1].isVisible = true
+    }
 }
