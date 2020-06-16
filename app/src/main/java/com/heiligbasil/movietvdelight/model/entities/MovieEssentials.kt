@@ -1,5 +1,6 @@
 package com.heiligbasil.movietvdelight.model.entities
 
+import android.os.Parcelable
 import android.widget.ImageView
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
@@ -9,7 +10,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.heiligbasil.movietvdelight.model.remote.Retrofit
 import com.squareup.picasso.Picasso
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "movie_table")
 data class MovieEssentials(
     @PrimaryKey(autoGenerate = false)
@@ -46,7 +49,7 @@ data class MovieEssentials(
 
     @ColumnInfo(name = "movie_saved")
     val saved: Boolean
-) : BaseObservable() {
+) : BaseObservable(), Parcelable {
     companion object {
         @JvmStatic
         @BindingAdapter("posterPath")
