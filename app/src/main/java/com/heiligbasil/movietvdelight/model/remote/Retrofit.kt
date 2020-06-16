@@ -16,8 +16,9 @@ class Retrofit {
         const val apiKey = BuildConfig.API_KEY
         const val baseUrl = "https://api.themoviedb.org/"
         const val baseImageUrl = "https://image.tmdb.org/t/p/"
-        const val posterSize = "w154/"
-        const val backdropSize = "w500"
+        const val smallSize = "w154/"
+        const val largeSize = "w342/"
+        const val backdropSize = "w500/"
 
         val interceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
@@ -38,9 +39,9 @@ class Retrofit {
                 .build()
         }
 
-        fun buildPosterUrl(filename: String): String {
+        fun buildPosterUrl(filename: String, large: Boolean = false): String {
             val url1 = URL(baseImageUrl)
-            val url2 = URL(url1, posterSize)
+            val url2 = URL(url1, if (large) largeSize else smallSize)
             val url3 = URL(url2, filename.removePrefix("/"))
             return url3.toString()
         }
