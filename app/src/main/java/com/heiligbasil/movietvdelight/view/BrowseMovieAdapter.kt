@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
-import com.heiligbasil.movietvdelight.model.remote.Retrofit
-import com.squareup.picasso.Picasso
 
 class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
     RecyclerView.Adapter<BrowseMovieAdapter.BrowseMovieViewHolder>() {
@@ -43,14 +40,10 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieEssentials, clickListener: (MovieEssentials) -> Unit) {
-            val createImageUrl = Retrofit.buildPosterUrl(movie.posterPath)
-            Picasso.get().load(createImageUrl).into(binding.browseRecyclerViewImage)
-            binding.browseRecyclerViewTextTitle.text = movie.title
-            binding.browseRecyclerViewTextYear.text = movie.releaseDate.substring(0..3)
-            binding.browseRecyclerViewTextLanguage.text = movie.originalLanguage
-            binding.browseRecyclerViewTextOverview.text = movie.overview
+            binding.movie = movie
 
-            binding.fragmentBrowseItemLayout.setOnClickListener {
+            binding.root.setOnClickListener {
+
                 ViewCompat.setTransitionName(binding.browseRecyclerViewImage, "dada")
 //                ViewCompat.setTransitionName(binding.browseRecyclerViewTextTitle,movie.title)
 //                binding.browseRecyclerViewImage.transitionName="poster_image"
