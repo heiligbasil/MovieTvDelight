@@ -11,14 +11,15 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
+import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
 import com.heiligbasil.movietvdelight.model.remote.Retrofit
 import com.squareup.picasso.Picasso
 
-class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Unit) :
+class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
     RecyclerView.Adapter<BrowseMovieAdapter.BrowseMovieViewHolder>() {
 
-    private val movieList = ArrayList<MovieTopRatedResult>()
+    private val movieList = ArrayList<MovieEssentials>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrowseMovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,7 +32,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
         holder.bind(movieList[position], clickListener)
     }
 
-    fun setList(movies: List<MovieTopRatedResult>) {
+    fun setList(movies: List<MovieEssentials>) {
         movieList.clear()
         movieList.addAll(movies)
     }
@@ -40,7 +41,8 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
 
     inner class BrowseMovieViewHolder(private val binding: FragmentBrowseItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieTopRatedResult, clickListener: (MovieTopRatedResult) -> Unit) {
+
+        fun bind(movie: MovieEssentials, clickListener: (MovieEssentials) -> Unit) {
             val createImageUrl = Retrofit.buildPosterUrl(movie.posterPath)
             Picasso.get().load(createImageUrl).into(binding.browseRecyclerViewImage)
             binding.browseRecyclerViewTextTitle.text = movie.title
@@ -49,7 +51,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
             binding.browseRecyclerViewTextOverview.text = movie.overview
 
             binding.fragmentBrowseItemLayout.setOnClickListener {
-                ViewCompat.setTransitionName(binding.browseRecyclerViewImage,"dada")
+                ViewCompat.setTransitionName(binding.browseRecyclerViewImage, "dada")
 //                ViewCompat.setTransitionName(binding.browseRecyclerViewTextTitle,movie.title)
 //                binding.browseRecyclerViewImage.transitionName="poster_image"
                 /*val transitionName =
@@ -68,10 +70,10 @@ class BrowseMovieAdapter(private val clickListener: (MovieTopRatedResult) -> Uni
 //                        movie.posterPath,
 //                        movie.title
 //                    )
-                val args=DetailsFragmentArgs(movie.posterPath).toBundle()
+                val args = DetailsFragmentArgs(movie.posterPath).toBundle()
 //                binding.browseRecyclerViewTextTitle.transitionName).toBundle()
                 it.findNavController()
-                    .navigate(R.id.nav_details,args,null,extras)
+                    .navigate(R.id.nav_details, args, null, extras)
 //                    .navigate(R.id.action_nav_browse_to_nav_details, bundle, null, extras)
             }
         }

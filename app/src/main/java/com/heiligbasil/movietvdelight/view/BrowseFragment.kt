@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseBinding
 import com.heiligbasil.movietvdelight.model.MovieRepository
+import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRated
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
@@ -22,10 +23,13 @@ import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_browse.*
 import retrofit2.Response
+import com.heiligbasil.movietvdelight.model.entities.ConvertMovieEntities.toMovieEssentials
 
 class BrowseFragment : OptionsMenuFragment() {
 
     private lateinit var binding: FragmentBrowseBinding
+    private lateinit var viewModel: BrowseViewModel
+    private lateinit var adapter: BrowseMovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,12 +46,10 @@ class BrowseFragment : OptionsMenuFragment() {
         val dao = MovieDatabase.getInstance(view.context).movieDao
         val repository = MovieRepository(dao)
         val factory = BrowseViewModelFactory(repository)
-        val viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
         binding.browseViewModel = viewModel
         binding.lifecycleOwner = this
-        binding.browseRecyclerViewContainer.layoutManager = LinearLayoutManager(view.context)
-        val adapter = BrowseMovieAdapter { viewModel.init(it) }
-        binding.browseRecyclerViewContainer.adapter = adapter
+        initRecyclerView()
 
         browse_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -70,13 +72,13 @@ class BrowseFragment : OptionsMenuFragment() {
                     mtrResponse.observe(viewLifecycleOwner, Observer {
                         val mtr = it.body()
                         val topRatedMoviesIterator = mtr?.results?.listIterator()
-                        val topRatedMovies = ArrayList<MovieTopRatedResult>()
+                        val movies = ArrayList<MovieEssentials>()
                         if (topRatedMoviesIterator !== null) {
                             while (topRatedMoviesIterator.hasNext()) {
                                 val topRatedMovie = topRatedMoviesIterator.next()
-                                topRatedMovies.add(topRatedMovie)
+                                movies.add(topRatedMovie.toMovieEssentials())
                             }
-                            adapter.setList(topRatedMovies)
+                            adapter.setList(movies)
                             adapter.notifyDataSetChanged()
                         }
                     })
@@ -91,4 +93,23 @@ class BrowseFragment : OptionsMenuFragment() {
 
     }
 
+    private fun initRecyclerView() {
+        binding.browseRecyclerViewContainer.layoutManager = LinearLayoutManager(this.context)
+        adapter = BrowseMovieAdapter { movie: MovieEssentials ->
+            movieClicked(movie)
+        }
+        binding.browseRecyclerViewContainer.adapter = adapter
+        addListOfMovies()
+    }
+
+    private fun movieClicked(movie: MovieEssentials) {
+        viewModel.init(movie)
+    }
+
+    private fun addListOfMovies() {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
+            adapter.setList(it)
+            adapter.notifyDataSetChanged()
+        })
+    }
 }
