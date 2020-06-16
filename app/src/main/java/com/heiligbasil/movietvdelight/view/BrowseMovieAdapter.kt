@@ -41,9 +41,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
 
         fun bind(movie: MovieEssentials, clickListener: (MovieEssentials) -> Unit) {
             binding.movie = movie
-
             binding.root.setOnClickListener {
-
                 ViewCompat.setTransitionName(binding.browseRecyclerViewImage, "dada")
 //                ViewCompat.setTransitionName(binding.browseRecyclerViewTextTitle,movie.title)
 //                binding.browseRecyclerViewImage.transitionName="poster_image"
@@ -54,7 +52,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
                     binding.browseRecyclerViewImage,
                     "dada"
                 ).toBundle()
-                bundle?.putString("img", movie.posterPath)
+//                bundle?.putParcelable("movie_object", movie)
                 val extras = FragmentNavigatorExtras(
                     binding.browseRecyclerViewImage to movie.posterPath
                 )
@@ -63,10 +61,10 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
 //                        movie.posterPath,
 //                        movie.title
 //                    )
-                val args = DetailsFragmentArgs(movie.posterPath).toBundle()
+                val args = DetailsFragmentArgs(movie).toBundle()
 //                binding.browseRecyclerViewTextTitle.transitionName).toBundle()
                 it.findNavController()
-                    .navigate(R.id.nav_details, args, null, extras)
+                    .navigate(R.id.nav_details, args)
 //                    .navigate(R.id.action_nav_browse_to_nav_details, bundle, null, extras)
             }
         }

@@ -5,20 +5,21 @@ import android.transition.TransitionInflater
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.heiligbasil.movietvdelight.R
-import com.heiligbasil.movietvdelight.model.remote.Retrofit
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_details.*
+import com.heiligbasil.movietvdelight.databinding.FragmentDetailsBinding
 
 
 class DetailsFragment : OptionsMenuFragment() {
 
+    private val safeArgs: DetailsFragmentArgs by navArgs()
+    private lateinit var binding: FragmentDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(
@@ -27,23 +28,24 @@ class DetailsFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
+        return binding.root
     }
 
-    val args: DetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val movie = safeArgs.sharedMovie
+        binding.movie = movie
+
 //        ViewCompat.setTransitionName(fragment_details_image,"dada")
-        val image = args.sharedImage
 //        val title=args.sharedTitle
 //        val transitionName = ViewCompat.getTransitionName(fragment_details_image).toString()
-        val stringImage = (arguments as Bundle).getString("img", "")
+//        val stringImage = (arguments as Bundle).getString("img", "")
 //        val stringTitle = (arguments as Bundle).getString("dodo", "")
-        val createImageUrl = Retrofit.buildPosterUrl(image)
-        Picasso.get().load(createImageUrl)
-            .into(fragment_details_image)
+//        val createImageUrl = Retrofit.buildPosterUrl(movie.posterPath,large = true)
+//        Picasso.get().load(createImageUrl).into(fragment_details_image)
 //        fragment_details_text_title.text="The Shawshank Redemption"
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

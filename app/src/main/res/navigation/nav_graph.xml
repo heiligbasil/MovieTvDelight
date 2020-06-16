@@ -49,8 +49,8 @@
         android:label="details_fragment"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="shared_image"
-            app:argType="string" />
+            android:name="shared_movie"
+            app:argType="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />
     </fragment>
 
 </navigation>
