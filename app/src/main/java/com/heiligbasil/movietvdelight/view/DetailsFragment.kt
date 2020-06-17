@@ -59,10 +59,10 @@ class DetailsFragment : OptionsMenuFragment() {
         savedViewModel = ViewModelProvider(this, savedFactory).get(SavedViewModel::class.java)
 
         // Access the movie object passed in from the previous fragment
-        movie = safeArgs.sharedMovie
+        movie = safeArgs.movieObject
 
         // Determine which ViewModel to use
-        activeViewModel = safeArgs.ViewModel
+        activeViewModel = safeArgs.viewModelEnum
 
         // Bind the movie object to the layout
         binding.movie = movie
