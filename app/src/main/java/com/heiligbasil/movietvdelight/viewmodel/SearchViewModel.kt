@@ -3,6 +3,7 @@ package com.heiligbasil.movietvdelight.viewmodel
 import android.os.Parcelable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
@@ -32,6 +33,10 @@ class SearchViewModel(
     fun getLocalMovies() = localRepository.movies
 
     fun getSavedMovies() = localRepository.saved
+
+    fun searchWithQuery(query: String): MutableLiveData<List<MovieEssentials>> {
+        return remoteRepository.getMovieSearchMutableLiveData(query)
+    }
 
     fun storeMovies() = viewModelScope.launch {
         // Iterate through the movies from the server and compare to see if any changes are present

@@ -62,25 +62,26 @@ class RemoteRepository(private val lco: LifecycleOwner) {
         return mtvLiveData
     }
 
-    /*fun getTopRatedMoviesMutableLiveData(): MutableLiveData<List<MovieTopRatedResult>> {
+    fun getMovieSearchMutableLiveData(query: String): MutableLiveData<List<MovieEssentials>> {
+        val movies = ArrayList<MovieEssentials>()
 
-        val tmdbService = Retrofit.getInstance().create(MtdService::class.java)
-
-        val mtrResponse = liveData<Response<MovieTopRated>> {
-            val lang = application.applicationContext.getString(R.string.language_en_us)
-            val response = tmdbService.getTopRatedMovies(Retrofit.apiKey, lang, 1)
+        val searchResponse = liveData<Response<MovieTopRated>> {
+            val response = movieService.searchMovieTitles(Retrofit.apiKey, query)
             emit(response)
         }
 
-        mtrResponse.observe(this, Observer {
+        searchResponse.observe(lco, Observer {
             val mtr = it.body()
-            val topRatedMovies = mtr?.results?.listIterator()
-            if (topRatedMovies !== null) {
-                while (topRatedMovies.hasNext()) {
-                    val topRatedMovie = topRatedMovies.next()
-                    Log.i("test321", topRatedMovie.title)
+            val searchMoviesIterator = mtr?.results?.listIterator()
+            if (searchMoviesIterator !== null) {
+                while (searchMoviesIterator.hasNext()) {
+                    val searchMovie = searchMoviesIterator.next()
+                    movies.add(searchMovie.toMovieEssentials())
                 }
+                mtvLiveData.value = movies
             }
         })
-    }*/
+
+        return mtvLiveData
+    }
 }

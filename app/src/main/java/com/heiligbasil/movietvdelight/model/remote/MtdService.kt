@@ -21,4 +21,10 @@ interface MtdService {
         @Query("api_key") apiKey: String,
         @Query("language") enUs: String
     ): Response<MovieDetail>
+
+    @GET("3/search/movie")
+    suspend fun searchMovieTitles(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String
+    ): Response<MovieTopRated>
 }
