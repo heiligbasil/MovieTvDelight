@@ -1,20 +1,14 @@
 package com.heiligbasil.movietvdelight.model.local
 
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
-import com.heiligbasil.movietvdelight.model.local.MovieDao
 
 class LocalRepository(private val dao: MovieDao) {
     val movies = dao.getAllMovies()
+    val saved = dao.getAllSavedMovies()
 
-    suspend fun insert(movie: MovieEssentials): Long {
-        return dao.insertMovie(movie)
-    }
+    suspend fun insert(movie: MovieEssentials): Long = dao.insertMovie(movie)
 
-    suspend fun update(movie: MovieEssentials): Int {
-        return dao.updateMovie(movie)
-    }
+    suspend fun update(movie: MovieEssentials): Int = dao.updateMovie(movie)
 
-    suspend fun delete(movie: MovieEssentials): Int {
-        return dao.deleteMovie(movie)
-    }
+    suspend fun delete(movie: MovieEssentials): Int = dao.deleteMovie(movie)
 }
