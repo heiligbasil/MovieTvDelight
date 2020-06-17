@@ -49,10 +49,10 @@
         android:label="details_fragment"
         tools:layout="@layout/fragment_details">
         <argument
-            android:name="shared_movie"
+            android:name="movie_object"
             app:argType="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />
         <argument
-            android:name="ViewModel"
+            android:name="view_model_enum"
             app:argType="com.heiligbasil.movietvdelight.viewmodel.ViewModel" />
     </fragment>
 
