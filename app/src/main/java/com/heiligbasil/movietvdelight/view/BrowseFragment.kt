@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseBinding
-import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
+import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
@@ -83,4 +83,21 @@ class BrowseFragment : OptionsMenuFragment() {
             adapter.notifyDataSetChanged()
         })
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // Load state if it exists to preserve Recycler View position
+        if (viewModel.listState != null) {
+            binding.browseRecyclerViewContainer.layoutManager?.onRestoreInstanceState(viewModel.listState)
+            viewModel.listState = null
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Save current state before being destroyed
+        viewModel.listState =
+            binding.browseRecyclerViewContainer.layoutManager?.onSaveInstanceState()
+    }
+
 }

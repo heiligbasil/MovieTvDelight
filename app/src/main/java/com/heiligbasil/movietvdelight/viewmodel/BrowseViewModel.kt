@@ -1,5 +1,6 @@
 package com.heiligbasil.movietvdelight.viewmodel
 
+import android.os.Parcelable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +17,7 @@ class BrowseViewModel(
     private lateinit var remoteMovies: LiveData<List<MovieEssentials>>
     private lateinit var movie: MovieEssentials
     var selectedTabPosition = 0
+    var listState: Parcelable? = null
 
     fun init(movie: MovieEssentials) {
         this.movie = movie
