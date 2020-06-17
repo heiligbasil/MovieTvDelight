@@ -4,6 +4,7 @@
     <string name="browse_top_rated_movies">Top Rated Movies</string>
     <string name="browse_top_rated_tv_shows">Top Rated TV Shows</string>
     <string name="browse_image_content_description">poster_image</string>
+    <string name="saved_image_content_description">poster_image</string>
     <string name="options_menu_about">About…</string>
     <string name="options_menu_saved">Saved</string>
 </resources>
