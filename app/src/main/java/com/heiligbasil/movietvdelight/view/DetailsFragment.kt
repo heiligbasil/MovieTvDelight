@@ -23,6 +23,7 @@ class DetailsFragment : OptionsMenuFragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var browseViewModel: BrowseViewModel
     private lateinit var savedViewModel: SavedViewModel
+    private lateinit var searchViewModel: SearchViewModel
     private lateinit var movie: MovieEssentials
     private lateinit var activeViewModel: ViewModel
 
@@ -51,8 +52,10 @@ class DetailsFragment : OptionsMenuFragment() {
         val localRepository = LocalRepository(dao)
         val remoteRepository = RemoteRepository(viewLifecycleOwner)
         val browseFactory = BrowseViewModelFactory(localRepository, remoteRepository)
+        val searchFactory = SearchViewModelFactory(localRepository, remoteRepository)
         val savedFactory = SavedViewModelFactory(localRepository)
         browseViewModel = ViewModelProvider(this, browseFactory).get(BrowseViewModel::class.java)
+        searchViewModel = ViewModelProvider(this, searchFactory).get(SearchViewModel::class.java)
         savedViewModel = ViewModelProvider(this, savedFactory).get(SavedViewModel::class.java)
 
         // Access the movie object passed in from the previous fragment
@@ -97,9 +100,9 @@ class DetailsFragment : OptionsMenuFragment() {
             // Update the saved attribute and commit the changes to the local database
             movie.saved = item.isChecked
             when (activeViewModel) {
-               ViewModel.BROWSE-> browseViewModel.updateMovie(movie)
-                ViewModel.SEARCH-> savedViewModel.updateMovie(movie) // TODO: Update this
-                ViewModel.SAVED-> savedViewModel.updateMovie(movie)
+                ViewModel.BROWSE -> browseViewModel.updateMovie(movie)
+                ViewModel.SEARCH -> searchViewModel.updateMovie(movie)
+                ViewModel.SAVED -> savedViewModel.updateMovie(movie)
             }
         }
         return super.onOptionsItemSelected(item)
