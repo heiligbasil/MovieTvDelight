@@ -26,18 +26,18 @@ object ConvertMovieEntities {
      */
     fun MovieEssentials.toMovieTopRatedResult() = MovieTopRatedResult(
         adult = false,
-        backdropPath = backdropPath,
+        backdropPath = backdropPath ?: "",
         genreIds = listOf(0),
         movieId = id,
-        originalLanguage = language,
-        originalTitle = originalTitle,
-        overview = overview,
+        originalLanguage = language ?: "",
+        originalTitle = originalTitle ?: "",
+        overview = overview ?: "",
         popularity = 0.0,
-        posterPath = posterPath,
+        posterPath = posterPath ?: "",
         releaseDate = "$year-01-01",
-        title = title,
+        title = title ?: "",
         video = false,
-        voteAverage = voteAverage,
+        voteAverage = voteAverage ?: 0.0,
         voteCount = 0
     )
 
@@ -65,14 +65,14 @@ object ConvertMovieEntities {
         genreIds = listOf(0),
         tvId = id,
         originCountry = listOf(""),
-        originalLanguage = language,
-        originalName = originalTitle,
-        overview = overview,
+        originalLanguage = language ?: "",
+        originalName = originalTitle ?: "",
+        overview = overview ?: "",
         popularity = 0.0,
-        posterPath = posterPath,
-        firstAirDate = year,
-        name = title,
-        voteAverage = voteAverage,
+        posterPath = posterPath ?: "",
+        firstAirDate = year ?: "",
+        name = title ?: "",
+        voteAverage = voteAverage ?: 0.0,
         voteCount = 0
     )
 }

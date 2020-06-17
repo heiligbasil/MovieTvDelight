@@ -20,32 +20,32 @@ data class MovieEssentials(
     val id: Int,
 
     @ColumnInfo(name = "movie_backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
 
     @Bindable
     @ColumnInfo(name = "movie_language")
-    val language: String,
+    val language: String?,
 
     @ColumnInfo(name = "movie_original_title")
-    val originalTitle: String,
+    val originalTitle: String?,
 
     @Bindable
     @ColumnInfo(name = "movie_overview")
-    val overview: String,
+    val overview: String?,
 
     @ColumnInfo(name = "movie_poster_path")
-    val posterPath: String,
+    val posterPath: String?,
 
     @Bindable
     @ColumnInfo(name = "movie_year")
-    val year: String,
+    val year: String?,
 
     @Bindable
     @ColumnInfo(name = "movie_title")
-    val title: String,
+    val title: String?,
 
     @ColumnInfo(name = "movie_vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double?,
 
     @ColumnInfo(name = "movie_saved")
     var saved: Boolean
