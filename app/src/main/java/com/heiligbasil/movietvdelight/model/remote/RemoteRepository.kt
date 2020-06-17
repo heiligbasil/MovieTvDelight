@@ -1,32 +1,28 @@
 package com.heiligbasil.movietvdelight.model.remote
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import com.heiligbasil.movietvdelight.R
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.liveData
 import com.heiligbasil.movietvdelight.model.entities.ConvertMovieEntities.toMovieEssentials
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.model.entities.MovieTopRated
-import com.heiligbasil.movietvdelight.model.entities.MovieTopRatedResult
-import com.heiligbasil.movietvdelight.model.remote.MtdService
-import com.heiligbasil.movietvdelight.model.remote.Retrofit
+import com.heiligbasil.movietvdelight.model.entities.TvTopRated
 import retrofit2.Response
 
-class RemoteRepository(private val lco:LifecycleOwner) {
+class RemoteRepository(private val lco: LifecycleOwner) {
 
-//    private val topRatedMovies = ArrayList<MovieTopRatedResult>()
-    private val topRatedMoviesLiveData = MutableLiveData<List<MovieEssentials>>()
+    private val mtvLiveData = MutableLiveData<List<MovieEssentials>>()
+    private val movieService = Retrofit.getInstance().create(MtdService::class.java)
+    private val tvService = Retrofit.getInstance().create(TtdService::class.java)
 
     fun getMtrMutableLiveData(): MutableLiveData<List<MovieEssentials>> {
-
-        val tmdbService = Retrofit.getInstance().create(MtdService::class.java)
+        val movies = ArrayList<MovieEssentials>()
 
         val mtrResponse = liveData<Response<MovieTopRated>> {
-            val response = tmdbService.getTopRatedMovies(Retrofit.apiKey, "enUS", 1)
+            val response = movieService.getTopRatedMovies(Retrofit.apiKey, "enUS", 1)
             emit(response)
         }
-
-        val movies = ArrayList<MovieEssentials>()
 
         mtrResponse.observe(lco, Observer {
             val mtr = it.body()
@@ -36,11 +32,34 @@ class RemoteRepository(private val lco:LifecycleOwner) {
                     val topRatedMovie = topRatedMoviesIterator.next()
                     movies.add(topRatedMovie.toMovieEssentials())
                 }
-                topRatedMoviesLiveData.value=movies
+                mtvLiveData.value = movies
             }
         })
 
-        return topRatedMoviesLiveData
+        return mtvLiveData
+    }
+
+    fun getTtrMutableLiveData(): MutableLiveData<List<MovieEssentials>> {
+        val movies = ArrayList<MovieEssentials>()
+
+        val ttrResponse = liveData<Response<TvTopRated>> {
+            val response = tvService.getTopRatedTvShows(Retrofit.apiKey, "enUS", 1)
+            emit(response)
+        }
+
+        ttrResponse.observe(lco, Observer {
+            val ttr = it.body()
+            val topRatedTvIterator = ttr?.results?.listIterator()
+            if (topRatedTvIterator !== null) {
+                while (topRatedTvIterator.hasNext()) {
+                    val topRatedTvSeries = topRatedTvIterator.next()
+                    movies.add(topRatedTvSeries.toMovieEssentials())
+                }
+                mtvLiveData.value = movies
+            }
+        })
+
+        return mtvLiveData
     }
 
     /*fun getTopRatedMoviesMutableLiveData(): MutableLiveData<List<MovieTopRatedResult>> {

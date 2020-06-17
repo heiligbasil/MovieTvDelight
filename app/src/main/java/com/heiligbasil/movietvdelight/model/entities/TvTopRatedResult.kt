@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TvTopRatedResult(
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
 
     @SerializedName("first_air_date")
     val firstAirDate: String,
@@ -12,7 +12,8 @@ data class TvTopRatedResult(
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
 
-    val id: Int,
+    @SerializedName("id")
+    val tvId: Int,
 
     val name: String,
 

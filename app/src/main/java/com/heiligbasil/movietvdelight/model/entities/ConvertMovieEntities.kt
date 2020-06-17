@@ -40,4 +40,39 @@ object ConvertMovieEntities {
         voteAverage = voteAverage,
         voteCount = 0
     )
+
+    /**
+     * Convert an object of type **TvTopRatedResult** to **MovieEssentials**
+     */
+    fun TvTopRatedResult.toMovieEssentials() = MovieEssentials(
+        id = tvId,
+        backdropPath = backdropPath ?: "",
+        language = originalLanguage,
+        originalTitle = originalName,
+        overview = overview,
+        posterPath = posterPath,
+        year = firstAirDate,
+        title = name,
+        voteAverage = voteAverage,
+        saved = false
+    )
+
+    /**
+     * Convert an object of type **MovieEssentials** to **TvTopRatedResult**
+     */
+    fun MovieEssentials.toTvTopRatedResult() = TvTopRatedResult(
+        backdropPath = backdropPath,
+        genreIds = listOf(0),
+        tvId = id,
+        originCountry = listOf(""),
+        originalLanguage = language,
+        originalName = originalTitle,
+        overview = overview,
+        popularity = 0.0,
+        posterPath = posterPath,
+        firstAirDate = year,
+        name = title,
+        voteAverage = voteAverage,
+        voteCount = 0
+    )
 }
