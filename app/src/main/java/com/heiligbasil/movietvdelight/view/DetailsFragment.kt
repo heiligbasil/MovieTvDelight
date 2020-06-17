@@ -14,16 +14,17 @@ import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
-import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
-import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModelFactory
+import com.heiligbasil.movietvdelight.viewmodel.*
 
 
 class DetailsFragment : OptionsMenuFragment() {
 
     private val safeArgs: DetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailsBinding
-    private lateinit var viewModel: BrowseViewModel
+    private lateinit var browseViewModel: BrowseViewModel
+    private lateinit var savedViewModel: SavedViewModel
     private lateinit var movie: MovieEssentials
+    private lateinit var activeViewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,23 +50,19 @@ class DetailsFragment : OptionsMenuFragment() {
         val dao = MovieDatabase.getInstance(view.context).movieDao
         val localRepository = LocalRepository(dao)
         val remoteRepository = RemoteRepository(viewLifecycleOwner)
-        val factory = BrowseViewModelFactory(localRepository, remoteRepository)
-        viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
+        val browseFactory = BrowseViewModelFactory(localRepository, remoteRepository)
+        val savedFactory = SavedViewModelFactory(localRepository)
+        browseViewModel = ViewModelProvider(this, browseFactory).get(BrowseViewModel::class.java)
+        savedViewModel = ViewModelProvider(this, savedFactory).get(SavedViewModel::class.java)
 
-        // Access the Movie object passed in from the previous fragment
+        // Access the movie object passed in from the previous fragment
         movie = safeArgs.sharedMovie
 
-        // Bind the Movie object to the layout
-        binding.movie = movie
+        // Determine which ViewModel to use
+        activeViewModel = safeArgs.ViewModel
 
-//        ViewCompat.setTransitionName(fragment_details_image,"dada")
-//        val title=args.sharedTitle
-//        val transitionName = ViewCompat.getTransitionName(fragment_details_image).toString()
-//        val stringImage = (arguments as Bundle).getString("img", "")
-//        val stringTitle = (arguments as Bundle).getString("dodo", "")
-//        val createImageUrl = Retrofit.buildPosterUrl(movie.posterPath,large = true)
-//        Picasso.get().load(createImageUrl).into(fragment_details_image)
-//        fragment_details_text_title.text="The Shawshank Redemption"
+        // Bind the movie object to the layout
+        binding.movie = movie
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -99,7 +96,11 @@ class DetailsFragment : OptionsMenuFragment() {
 
             // Update the saved attribute and commit the changes to the local database
             movie.saved = item.isChecked
-            viewModel.updateMovie(movie)
+            when (activeViewModel) {
+               ViewModel.BROWSE-> browseViewModel.updateMovie(movie)
+                ViewModel.SEARCH-> savedViewModel.updateMovie(movie) // TODO: Update this
+                ViewModel.SAVED-> savedViewModel.updateMovie(movie)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
