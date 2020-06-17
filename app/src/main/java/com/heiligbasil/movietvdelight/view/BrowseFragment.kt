@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseBinding
-import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
+import com.heiligbasil.movietvdelight.model.entities.Utils
 import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
@@ -72,6 +72,9 @@ class BrowseFragment : OptionsMenuFragment() {
                 viewModel.dbList.add(movie)
             }
         })
+
+        // Save the current location using Shared Preferences
+        Utils.saveLocation(view.context, 0)
     }
 
     private fun initRecyclerView() {

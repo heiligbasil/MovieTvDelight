@@ -10,13 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heiligbasil.movietvdelight.R
-import com.heiligbasil.movietvdelight.databinding.FragmentSavedBinding
 import com.heiligbasil.movietvdelight.databinding.FragmentSearchBinding
+import com.heiligbasil.movietvdelight.model.entities.Utils
 import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
-import com.heiligbasil.movietvdelight.viewmodel.SavedViewModel
-import com.heiligbasil.movietvdelight.viewmodel.SavedViewModelFactory
 import com.heiligbasil.movietvdelight.viewmodel.SearchViewModel
 import com.heiligbasil.movietvdelight.viewmodel.SearchViewModelFactory
 
@@ -66,6 +64,9 @@ class SearchFragment : OptionsMenuFragment() {
                 return true
             }
         })
+
+        // Save the current location using Shared Preferences
+        Utils.saveLocation(view.context, 1)
     }
 
     private fun initRecyclerView() {

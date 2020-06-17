@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentSavedBinding
+import com.heiligbasil.movietvdelight.model.entities.Utils
 import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.viewmodel.SavedViewModel
@@ -41,6 +42,9 @@ class SavedFragment : OptionsMenuFragment() {
         binding.lifecycleOwner = this
 
         initRecyclerView()
+
+        // Save the current location using Shared Preferences
+        Utils.saveLocation(view.context, 2)
     }
 
     private fun initRecyclerView() {
