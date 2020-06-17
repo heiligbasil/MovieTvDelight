@@ -51,6 +51,9 @@
         <argument
             android:name="shared_movie"
             app:argType="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />
+        <argument
+            android:name="ViewModel"
+            app:argType="com.heiligbasil.movietvdelight.viewmodel.ViewModel" />
     </fragment>
 
 </navigation>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
+import com.heiligbasil.movietvdelight.viewmodel.ViewModel
 
 class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
     RecyclerView.Adapter<BrowseMovieAdapter.BrowseMovieViewHolder>() {
@@ -61,7 +62,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
 //                        movie.posterPath,
 //                        movie.title
 //                    )
-                val args = DetailsFragmentArgs(movie).toBundle()
+                val args = DetailsFragmentArgs(movie, ViewModel.BROWSE).toBundle()
 //                binding.browseRecyclerViewTextTitle.transitionName).toBundle()
                 it.findNavController()
                     .navigate(R.id.nav_details, args)
