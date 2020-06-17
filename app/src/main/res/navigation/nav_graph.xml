@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_browse">
+
+    <fragment
+        android:id="@+id/nav_browse"
+        android:name="com.heiligbasil.movietvdelight.view.BrowseFragment"
+        android:label="browse_fragment"
+        tools:layout="@layout/fragment_browse">
+        <action
+            android:id="@+id/action_nav_browse_to_nav_details2"
+            app:destination="@id/nav_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.heiligbasil.movietvdelight.view.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_nav_search_to_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_saved"
+        android:name="com.heiligbasil.movietvdelight.view.SavedFragment"
+        android:label="saved_fragment"
+        tools:layout="@layout/fragment_saved">
+        <action
+            android:id="@+id/action_nav_saved_to_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.heiligbasil.movietvdelight.view.AboutFragment"
+        android:label="about_fragment"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.heiligbasil.movietvdelight.view.DetailsFragment"
+        android:label="details_fragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="movie_object"
+            app:argType="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />
+        <argument
+            android:name="view_model_enum"
+            app:argType="com.heiligbasil.movietvdelight.viewmodel.ViewModel" />
+    </fragment>
+
+</navigation>
