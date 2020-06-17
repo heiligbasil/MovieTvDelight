@@ -58,10 +58,20 @@ class BrowseFragment : OptionsMenuFragment() {
                     viewModel.setTabChoice(1)
                 }
                 initRecyclerView()
+                viewModel.storeMovies()
             }
         })
 
+        // Ensure a good tab state upon creation
         browse_tab_layout.selectTab(browse_tab_layout.getTabAt(viewModel.selectedTabPosition))
+
+        // Retrieve all of the local database objects and store them in an accessible format
+        viewModel.getLocalMovies().observe(viewLifecycleOwner, Observer {
+            viewModel.dbList.clear()
+            it.forEach { movie ->
+                viewModel.dbList.add(movie)
+            }
+        })
     }
 
     private fun initRecyclerView() {
@@ -78,7 +88,20 @@ class BrowseFragment : OptionsMenuFragment() {
     }
 
     private fun addListOfMovies() {
+        // Set the HashMap up with only the saved movies
+        viewModel.getSavedMovies().observe(viewLifecycleOwner, Observer {
+            viewModel.savedHash.clear()
+            it.forEach { movie ->
+                viewModel.savedHash[movie.id] = movie.saved
+            }
+        })
+
+        // Add all of the movie objects into the Recycler View
         viewModel.getMovies().observe(viewLifecycleOwner, Observer {
+            it.forEach { movie ->
+                if (viewModel.savedHash.containsKey(movie.id))
+                    movie.saved = true
+            }
             adapter.setList(it)
             adapter.notifyDataSetChanged()
         })
@@ -99,5 +122,4 @@ class BrowseFragment : OptionsMenuFragment() {
         viewModel.listState =
             binding.browseRecyclerViewContainer.layoutManager?.onSaveInstanceState()
     }
-
 }
