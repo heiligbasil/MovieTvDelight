@@ -79,8 +79,10 @@ object ConvertMovieEntities {
     /**
      * Remove the year from the start of the string if it exists
      */
-    fun String.pluckYear(): String {
-        if (this.length > 4)
+    fun String?.pluckYear(): String {
+        if (this == null)
+            return "unknown"
+        else if (this.length > 4)
             return this.substring(0..3)
         else
             return this
