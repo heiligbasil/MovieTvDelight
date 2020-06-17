@@ -11,7 +11,7 @@
         android:id="@+id/nav_browse"
         android:name="com.heiligbasil.movietvdelight.view.BrowseFragment"
         android:label="browse_fragment"
-        tools:layout="@layout/fragment_browse" >
+        tools:layout="@layout/fragment_browse">
         <action
             android:id="@+id/action_nav_browse_to_nav_details2"
             app:destination="@id/nav_details" />
@@ -21,7 +21,7 @@
         android:id="@+id/nav_search"
         android:name="com.heiligbasil.movietvdelight.view.SearchFragment"
         android:label="search_fragment"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_nav_search_to_nav_details"
             app:destination="@id/nav_details" />
@@ -31,7 +31,7 @@
         android:id="@+id/nav_saved"
         android:name="com.heiligbasil.movietvdelight.view.SavedFragment"
         android:label="saved_fragment"
-        tools:layout="@layout/fragment_saved" >
+        tools:layout="@layout/fragment_saved">
         <action
             android:id="@+id/action_nav_saved_to_nav_details"
             app:destination="@id/nav_details" />
@@ -47,7 +47,7 @@
         android:id="@+id/nav_details"
         android:name="com.heiligbasil.movietvdelight.view.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="shared_movie"
             app:argType="com.heiligbasil.movietvdelight.model.entities.MovieEssentials" />

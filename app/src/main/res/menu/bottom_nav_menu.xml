@@ -6,16 +6,16 @@
     <item
         android:id="@+id/nav_browse"
         android:icon="@drawable/ic_browse"
-        android:title="Browse" />
+        android:title="@string/bottom_nav_browse" />
 
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:title="@string/bottom_nav_search" />
 
     <item
         android:id="@+id/nav_saved"
         android:icon="@drawable/ic_saved"
-        android:title="Saved" />
+        android:title="@string/bottom_nav_saved" />
 
 </menu>

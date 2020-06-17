@@ -10,4 +10,7 @@
     <string name="about_image_logo">Image of the app\'s logo</string>
     <string name="about_image_tmdb">Image of the TMDB logo</string>
     <string name="about_tmdb_credit">This product uses the TMDb API \nbut is not endorsed or certified by TMDb.</string>
+    <string name="bottom_nav_browse">Browse</string>
+    <string name="bottom_nav_search">Search</string>
+    <string name="bottom_nav_saved">Saved</string>
 </resources>
