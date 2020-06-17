@@ -51,43 +51,17 @@ class BrowseFragment : OptionsMenuFragment() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
             override fun onTabSelected(tab: TabLayout.Tab?) {
-
-                initRecyclerView()
-
-
-                if (tab?.text.toString().equals(getString(R.string.browse_top_rated_movies))) {
-
-                    /*val tmdbService = Retrofit.getInstance().create(MtdService::class.java)
-                        val mtrResponse = liveData<Response<MovieTopRated>> {
-                        val response = tmdbService.getTopRatedMovies(Retrofit.apiKey, "enUS", 1)
-                        emit(response)
-                    }*/
-
-                    /*mtrResponse.observe(viewLifecycleOwner, Observer {
-                        val mtr = it.body()
-                        val topRatedMoviesIterator = mtr?.results?.listIterator()
-                        val movies = ArrayList<MovieEssentials>()
-                        if (topRatedMoviesIterator !== null) {
-                            while (topRatedMoviesIterator.hasNext()) {
-                                val topRatedMovie = topRatedMoviesIterator.next()
-                                movies.add(topRatedMovie.toMovieEssentials())
-                            }
-                            adapter.setList(movies)
-                            adapter.notifyDataSetChanged()
-                        }
-                    })*/
-
+                if (tab?.text.toString() == getString(R.string.browse_top_rated_movies)) {
+                    viewModel.setTabChoice(0)
                 } else {
-
+                    viewModel.setTabChoice(1)
                 }
+                initRecyclerView()
             }
-
         })
 
-        browse_tab_layout.selectTab(browse_tab_layout.getTabAt(0))
-
+        browse_tab_layout.selectTab(browse_tab_layout.getTabAt(viewModel.selectedTabPosition))
     }
 
     private fun initRecyclerView() {
@@ -104,7 +78,7 @@ class BrowseFragment : OptionsMenuFragment() {
     }
 
     private fun addListOfMovies() {
-        viewModel.remoteMovies.observe(viewLifecycleOwner, Observer {
+        viewModel.getMovies().observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
             adapter.notifyDataSetChanged()
         })
