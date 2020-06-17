@@ -15,7 +15,7 @@ object ConvertMovieEntities {
         originalTitle = originalTitle,
         overview = overview,
         posterPath = posterPath,
-        year = releaseDate.substring(0..3),
+        year = releaseDate.pluckYear(),
         title = title,
         voteAverage = voteAverage,
         saved = false
@@ -75,4 +75,14 @@ object ConvertMovieEntities {
         voteAverage = voteAverage ?: 0.0,
         voteCount = 0
     )
+
+    /**
+     * Remove the year from the start of the string if it exists
+     */
+    fun String.pluckYear(): String {
+        if (this.length > 4)
+            return this.substring(0..3)
+        else
+            return this
+    }
 }

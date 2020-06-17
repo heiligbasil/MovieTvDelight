@@ -53,7 +53,8 @@ data class MovieEssentials(
     companion object {
         @JvmStatic
         @BindingAdapter("app:posterPath", "app:largeSize", requireAll = false)
-        fun loadPoster(imageView: ImageView, url: String, largeSize: Boolean = false) {
+        fun loadPoster(imageView: ImageView, url: String?, largeSize: Boolean = false) {
+            if (url.isNullOrBlank()) return
             val posterUrl = Retrofit.buildPosterUrl(url, large = largeSize)
             Picasso.get().load(posterUrl).into(imageView)
         }
