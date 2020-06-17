@@ -1,9 +1,7 @@
 package com.heiligbasil.movietvdelight.viewmodel
 
 import android.os.Parcelable
-import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
@@ -18,7 +16,6 @@ class SearchViewModel(
 
     private val localMovies: LiveData<List<MovieEssentials>> = localRepository.movies
     private lateinit var remoteMovies: LiveData<List<MovieEssentials>>
-    private lateinit var movie: MovieEssentials
 
     // Accessible copy of the local database list of records
     val dbList = ArrayList<MovieEssentials>()
@@ -30,12 +27,12 @@ class SearchViewModel(
 
     fun getMovies() = remoteMovies
 
-    fun getLocalMovies() = localRepository.movies
-
     fun getSavedMovies() = localRepository.saved
 
-    fun searchWithQuery(query: String): MutableLiveData<List<MovieEssentials>> {
-        return remoteRepository.getMovieSearchMutableLiveData(query)
+    fun searchWithQuery(query: String): LiveData<List<MovieEssentials>> {
+        remoteMovies = remoteRepository.getMovieSearchMutableLiveData(query)
+
+        return remoteMovies
     }
 
     fun storeMovies() = viewModelScope.launch {

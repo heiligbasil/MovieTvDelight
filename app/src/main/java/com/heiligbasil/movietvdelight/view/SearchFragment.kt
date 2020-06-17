@@ -46,7 +46,26 @@ class SearchFragment : OptionsMenuFragment() {
         binding.searchViewModel = viewModel
         binding.lifecycleOwner = this
 
-        initRecyclerView()
+        // Specify behavior when searching for movie titles
+        binding.searchSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val modifiedQuery = query.toString().replace(' ', '+')
+                viewModel.dbList.clear()
+                viewModel.searchWithQuery(modifiedQuery).observe(viewLifecycleOwner, Observer {
+                    it.forEach { movie ->
+                        viewModel.dbList.add(movie)
+                    }
+                    initRecyclerView()
+                    viewModel.storeMovies()
+                })
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun initRecyclerView() {
@@ -57,10 +76,38 @@ class SearchFragment : OptionsMenuFragment() {
     }
 
     private fun addListOfMovies() {
-        // Add all of the movie objects into the Recycler View
+        // Set the HashMap up with only the saved movies
         viewModel.getSavedMovies().observe(viewLifecycleOwner, Observer {
+            viewModel.savedHash.clear()
+            it.forEach { movie ->
+                viewModel.savedHash[movie.id] = movie.saved
+            }
+        })
+
+        // Add all of the movie objects into the Recycler View
+        viewModel.getMovies().observe(viewLifecycleOwner, Observer {
+            it.forEach { movie ->
+                if (viewModel.savedHash.containsKey(movie.id))
+                    movie.saved = true
+            }
             adapter.setList(it)
             adapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // Load state if it exists to preserve Recycler View position
+        if (viewModel.listState != null) {
+            binding.searchRecyclerViewContainer.layoutManager?.onRestoreInstanceState(viewModel.listState)
+            viewModel.listState = null
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Save current state before being destroyed
+        viewModel.listState =
+            binding.searchRecyclerViewContainer.layoutManager?.onSaveInstanceState()
     }
 }
