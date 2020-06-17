@@ -6,10 +6,10 @@ import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 
 @Dao
 interface MovieDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovie(movie: MovieEssentials): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateMovie(movie: MovieEssentials): Int
 
     @Delete
@@ -17,4 +17,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie_table")
     fun getAllMovies(): LiveData<List<MovieEssentials>>
+
+    @Query("SELECT * FROM movie_table WHERE movie_saved = :saved")
+    fun getAllSavedMovies(saved: Boolean = true): LiveData<List<MovieEssentials>>
 }
