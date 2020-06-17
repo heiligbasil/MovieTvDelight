@@ -48,7 +48,7 @@ data class MovieEssentials(
     val voteAverage: Double,
 
     @ColumnInfo(name = "movie_saved")
-    val saved: Boolean
+    var saved: Boolean
 ) : BaseObservable(), Parcelable {
     companion object {
         @JvmStatic
