@@ -13,11 +13,10 @@ import kotlinx.coroutines.launch
 class BrowseViewModel(
     private val localRepository: LocalRepository,
     private val remoteRepository: RemoteRepository
-) : ViewModel(), Observable {
+) : ViewModel() {
 
     private val localMovies: LiveData<List<MovieEssentials>> = localRepository.movies
     private lateinit var remoteMovies: LiveData<List<MovieEssentials>>
-    private lateinit var movie: MovieEssentials
 
     // Accessible copy of the local database list of records
     val dbList = ArrayList<MovieEssentials>()
@@ -32,10 +31,6 @@ class BrowseViewModel(
     fun getLocalMovies() = localRepository.movies
 
     fun getSavedMovies() = localRepository.saved
-
-    fun init(movie: MovieEssentials) {
-        this.movie = movie
-    }
 
     fun setTabChoice(tabPosition: Int) {
         selectedTabPosition = tabPosition
@@ -65,8 +60,4 @@ class BrowseViewModel(
     fun updateMovie(movie: MovieEssentials) = viewModelScope.launch {
         localRepository.update(movie)
     }
-
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {}
-
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {}
 }

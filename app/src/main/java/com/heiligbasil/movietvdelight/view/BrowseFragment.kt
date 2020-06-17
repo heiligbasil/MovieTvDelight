@@ -76,15 +76,9 @@ class BrowseFragment : OptionsMenuFragment() {
 
     private fun initRecyclerView() {
         binding.browseRecyclerViewContainer.layoutManager = LinearLayoutManager(this.context)
-        adapter = BrowseMovieAdapter { movie: MovieEssentials ->
-            movieClicked(movie)
-        }
+        adapter = BrowseMovieAdapter()
         binding.browseRecyclerViewContainer.adapter = adapter
         addListOfMovies()
-    }
-
-    private fun movieClicked(movie: MovieEssentials) {
-        viewModel.init(movie)
     }
 
     private fun addListOfMovies() {

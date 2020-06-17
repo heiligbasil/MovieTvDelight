@@ -14,7 +14,7 @@ import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 import com.heiligbasil.movietvdelight.viewmodel.ViewModel
 
-class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
+class BrowseMovieAdapter :
     RecyclerView.Adapter<BrowseMovieAdapter.BrowseMovieViewHolder>() {
 
     private val movieList = ArrayList<MovieEssentials>()
@@ -27,7 +27,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: BrowseMovieViewHolder, position: Int) {
-        holder.bind(movieList[position], clickListener)
+        holder.bind(movieList[position])
     }
 
     fun setList(movies: List<MovieEssentials>) {
@@ -40,7 +40,7 @@ class BrowseMovieAdapter(private val clickListener: (MovieEssentials) -> Unit) :
     inner class BrowseMovieViewHolder(private val binding: FragmentBrowseItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: MovieEssentials, clickListener: (MovieEssentials) -> Unit) {
+        fun bind(movie: MovieEssentials) {
             binding.movie = movie
             binding.root.setOnClickListener {
                 val args = DetailsFragmentArgs(movie, ViewModel.BROWSE).toBundle()
