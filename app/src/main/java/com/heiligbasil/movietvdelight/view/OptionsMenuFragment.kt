@@ -8,6 +8,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.heiligbasil.movietvdelight.R
 
+/**
+ * Base/Super/Parent class for the fragments, to reduce redundant code
+ */
 open class OptionsMenuFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
