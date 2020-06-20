@@ -71,7 +71,8 @@ class SearchFragment : OptionsMenuFragment() {
 
         // Set up the action bar
         val appCompatActivity = activity as AppCompatActivity
-        appCompatActivity.supportActionBar?.title="${appCompatActivity.title} - Search"
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        appCompatActivity.supportActionBar?.title = "${appCompatActivity.title} - Search"
     }
 
     private fun initRecyclerView() {

@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentDetailsBinding
@@ -71,11 +72,10 @@ class DetailsFragment : OptionsMenuFragment() {
         // Bind the movie object to the layout
         binding.movie = movie
 
+        // Change the app title and add a back button on there
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        appCompatActivity.supportActionBar?.title=movie.title
-        binding.toolbarLayout.title=movie.title
-
+        appCompatActivity.supportActionBar?.title = "${appCompatActivity.title} - Details"
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,6 +95,7 @@ class DetailsFragment : OptionsMenuFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Take action when the bookmark icon has been toggled
         if (item.title == getString(R.string.options_menu_saved)) {
             item.icon = context?.let {
                 // Toggle the checked state and visible icon
@@ -114,7 +115,11 @@ class DetailsFragment : OptionsMenuFragment() {
                 ViewModel.SEARCH -> searchViewModel.updateMovie(movie)
                 ViewModel.SAVED -> savedViewModel.updateMovie(movie)
             }
+        } else if (item.itemId == android.R.id.home) {
+            // Treat the Up button on the Action Bar the same as the Back button
+            findNavController().popBackStack()
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

@@ -84,7 +84,8 @@ class BrowseFragment : OptionsMenuFragment() {
 
         // Set up the action bar
         val appCompatActivity = activity as AppCompatActivity
-        appCompatActivity.supportActionBar?.title="${appCompatActivity.title} - Browse"
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        appCompatActivity.supportActionBar?.title = "${appCompatActivity.title} - Browse"
     }
 
     private fun initRecyclerView() {

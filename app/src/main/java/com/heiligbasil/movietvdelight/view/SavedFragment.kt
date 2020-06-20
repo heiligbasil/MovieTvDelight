@@ -55,7 +55,8 @@ class SavedFragment : OptionsMenuFragment() {
 
         // Set up the action bar
         val appCompatActivity = activity as AppCompatActivity
-        appCompatActivity.supportActionBar?.title="${appCompatActivity.title} - Saved"
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        appCompatActivity.supportActionBar?.title = "${appCompatActivity.title} - Saved"
     }
 
     private fun initRecyclerView() {
