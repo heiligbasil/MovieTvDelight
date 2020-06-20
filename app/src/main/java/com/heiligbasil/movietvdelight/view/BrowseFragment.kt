@@ -65,6 +65,11 @@ class BrowseFragment : OptionsMenuFragment() {
         // Ensure a good tab state upon creation
         browse_tab_layout.selectTab(browse_tab_layout.getTabAt(viewModel.selectedTabPosition))
 
+        // Re-initialize the Recycler View when the view is swiped
+        browse_swipe_refresh_layout.setOnRefreshListener {
+            initRecyclerView()
+        }
+
         // Retrieve all of the local database objects and store them in an accessible format
         viewModel.getLocalMovies().observe(viewLifecycleOwner, Observer {
             viewModel.dbList.clear()
@@ -101,6 +106,9 @@ class BrowseFragment : OptionsMenuFragment() {
             }
             adapter.setList(it)
             adapter.notifyDataSetChanged()
+
+            // Turn off the spinning loading icon
+            browse_swipe_refresh_layout.isRefreshing = false
         })
     }
 
