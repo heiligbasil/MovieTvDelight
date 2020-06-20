@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -51,6 +52,10 @@ class SavedFragment : OptionsMenuFragment() {
 
         // Save the current location using Shared Preferences
         Utils.saveLocation(view.context, 2)
+
+        // Set up the action bar
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.supportActionBar?.title="${appCompatActivity.title} - Saved"
     }
 
     private fun initRecyclerView() {

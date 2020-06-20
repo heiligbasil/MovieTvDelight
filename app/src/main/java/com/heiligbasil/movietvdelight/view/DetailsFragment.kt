@@ -3,6 +3,7 @@ package com.heiligbasil.movietvdelight.view
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
@@ -15,6 +16,8 @@ import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 import com.heiligbasil.movietvdelight.viewmodel.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class DetailsFragment : OptionsMenuFragment() {
@@ -40,6 +43,7 @@ class DetailsFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
+//        activity?.setTheme(R.style.AppTheme_NoActionBar)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
         return binding.root
     }
@@ -66,6 +70,12 @@ class DetailsFragment : OptionsMenuFragment() {
 
         // Bind the movie object to the layout
         binding.movie = movie
+
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        appCompatActivity.supportActionBar?.title=movie.title
+        binding.toolbarLayout.title=movie.title
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

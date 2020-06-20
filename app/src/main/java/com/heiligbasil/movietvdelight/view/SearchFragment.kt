@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -67,6 +68,10 @@ class SearchFragment : OptionsMenuFragment() {
 
         // Save the current location using Shared Preferences
         Utils.saveLocation(view.context, 1)
+
+        // Set up the action bar
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.supportActionBar?.title="${appCompatActivity.title} - Search"
     }
 
     private fun initRecyclerView() {

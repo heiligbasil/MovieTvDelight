@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             .setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.nav_about) {
+            if (destination.id == R.id.nav_about || destination.id == R.id.nav_details) {
                 bottom_navigation_view.visibility = View.GONE
             } else {
                 bottom_navigation_view.visibility = View.VISIBLE
