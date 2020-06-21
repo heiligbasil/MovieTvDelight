@@ -17,8 +17,6 @@ import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 import com.heiligbasil.movietvdelight.viewmodel.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class DetailsFragment : OptionsMenuFragment() {
@@ -44,7 +42,6 @@ class DetailsFragment : OptionsMenuFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-//        activity?.setTheme(R.style.AppTheme_NoActionBar)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
         return binding.root
     }
@@ -72,50 +69,52 @@ class DetailsFragment : OptionsMenuFragment() {
         // Bind the movie object to the layout
         binding.movie = movie
 
-        // Change the app title and add a back button on there
+        // Set the initial look of the Floating Action Button
+        setFabVisuals()
+
+        // Use the Floating Action Button as a saved indicator and toggler
+        binding.fab.setOnClickListener {
+            toggleFabVisuals()
+        }
+
+        // Change the Action Bar title and add an 'up' button on it
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appCompatActivity.supportActionBar?.title = "${appCompatActivity.title} - Details"
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+    /**
+     * Toggle the saved attribute on the movie object and update the Floating Action Button's visuals
+     */
+    private fun toggleFabVisuals() {
+        // Toggle the saved flag on the movie object
+        movie.saved = !movie.saved
+        setFabVisuals()
 
-        // Show the menu item and toggle the checked state to match the movie record
-        menu[1].apply {
-            this.isVisible = true
-            this.isChecked = movie.saved
-            this.icon = context?.let {
-                if (this.isChecked)
-                    ContextCompat.getDrawable(it, R.drawable.ic_saved)
-                else
-                    ContextCompat.getDrawable(it, R.drawable.ic_save)
-            }
+        // Commit the changes to the local database
+        when (activeViewModel) {
+            ViewModel.BROWSE -> browseViewModel.updateMovie(movie)
+            ViewModel.SEARCH -> searchViewModel.updateMovie(movie)
+            ViewModel.SAVED -> savedViewModel.updateMovie(movie)
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Take action when the bookmark icon has been toggled
-        if (item.title == getString(R.string.options_menu_saved)) {
-            item.icon = context?.let {
-                // Toggle the checked state and visible icon
-                if (item.isChecked) {
-                    item.isChecked = false
-                    ContextCompat.getDrawable(it, R.drawable.ic_save)
-                } else {
-                    item.isChecked = true
-                    ContextCompat.getDrawable(it, R.drawable.ic_saved)
-                }
-            }
+    /**
+     * Set the correct visual look for the Floating Action Button depending on the movie's saved flag
+     */
+    private fun setFabVisuals() {
+        val icon = context?.let {
+            if (movie.saved)
+                ContextCompat.getDrawable(it, R.drawable.ic_saved)
+            else
+                ContextCompat.getDrawable(it, R.drawable.ic_save)
+        }
 
-            // Update the saved attribute and commit the changes to the local database
-            movie.saved = item.isChecked
-            when (activeViewModel) {
-                ViewModel.BROWSE -> browseViewModel.updateMovie(movie)
-                ViewModel.SEARCH -> searchViewModel.updateMovie(movie)
-                ViewModel.SAVED -> savedViewModel.updateMovie(movie)
-            }
-        } else if (item.itemId == android.R.id.home) {
+        binding.fab.setImageDrawable(icon)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
             // Treat the Up button on the Action Bar the same as the Back button
             findNavController().popBackStack()
         }
