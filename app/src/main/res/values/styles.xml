@@ -1,17 +1,20 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionBarStyle">@style/ActionBarGradient</item>
     </style>
 
-    <style name="AppThemeSplash" parent="AppTheme">
+    <style name="AppThemeSplash"
+        parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_layers</item>
     </style>
 
-    <style name="ActionBarGradient" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="ActionBarGradient"
+        parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@drawable/action_bar_gradient</item>
         <item name="android:background">@drawable/action_bar_gradient</item>
     </style>
