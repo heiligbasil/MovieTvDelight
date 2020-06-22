@@ -15,8 +15,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
         tools:context="com.heiligbasil.movietvdelight.view.DetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -29,9 +27,9 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"
                 app:contentScrim="@color/colorPrimaryDark"
                 app:expandedTitleMarginEnd="64dp"
-                android:background="@color/colorPrimaryDark"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -112,7 +110,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:elevation="6dp"
-            android:scaleType="matrix"
             app:borderWidth="0dp"
             app:fabSize="mini"
             app:layout_anchor="@id/app_bar"
