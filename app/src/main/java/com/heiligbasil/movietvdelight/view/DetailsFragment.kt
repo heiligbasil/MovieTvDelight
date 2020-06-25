@@ -67,8 +67,8 @@ class DetailsFragment : OptionsMenuFragment() {
         activeViewModel = safeArgs.viewModelEnum
 
         // Bind the movie object to the layout
-        binding.movie = movie
-
+        binding.movie = safeArgs.movieObject
+binding.executePendingBindings()
         // Set the initial look of the Floating Action Button
         setFabVisuals()
 

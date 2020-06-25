@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentBrowseItemBinding
@@ -39,8 +40,10 @@ class BrowseMovieAdapter :
         fun bind(movie: MovieEssentials) {
             binding.movie = movie
             binding.root.setOnClickListener {
+                val extras= FragmentNavigatorExtras(
+                    binding.browseRecyclerViewImage to binding.browseRecyclerViewImage.transitionName)
                 val args = DetailsFragmentArgs(movie, ViewModel.BROWSE).toBundle()
-                it.findNavController().navigate(R.id.nav_details, args)
+                it.findNavController().navigate(R.id.nav_details, args, null, extras)
             }
         }
     }

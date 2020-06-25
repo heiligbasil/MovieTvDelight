@@ -35,7 +35,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="32dp"
                 android:scaleType="centerCrop"
-                android:transitionName="hgfd"
+                android:transitionName="@{@string/transition_poster(movie.id)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="W,2:3"
                 app:layout_constraintStart_toStartOf="parent"

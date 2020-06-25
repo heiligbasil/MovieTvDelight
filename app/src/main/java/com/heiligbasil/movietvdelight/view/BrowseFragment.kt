@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +47,7 @@ class BrowseFragment : OptionsMenuFragment() {
         viewModel = ViewModelProvider(this, factory).get(BrowseViewModel::class.java)
         binding.browseViewModel = viewModel
         binding.lifecycleOwner = this
+        waitForTransition(binding.browseRecyclerViewContainer)
 
         browse_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -116,6 +119,11 @@ class BrowseFragment : OptionsMenuFragment() {
             // Turn off the spinning loading icon
             browse_swipe_refresh_layout.isRefreshing = false
         })
+    }
+
+    private fun Fragment.waitForTransition(targetView: View) {
+        postponeEnterTransition()
+        targetView.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
