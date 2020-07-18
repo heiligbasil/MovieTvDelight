@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.heiligbasil.movietvdelight.R
 import com.heiligbasil.movietvdelight.databinding.FragmentDetailsBinding
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
@@ -68,7 +69,7 @@ class DetailsFragment : OptionsMenuFragment() {
 
         // Bind the movie object to the layout
         binding.movie = safeArgs.movieObject
-binding.executePendingBindings()
+        binding.executePendingBindings()
         // Set the initial look of the Floating Action Button
         setFabVisuals()
 
@@ -111,6 +112,17 @@ binding.executePendingBindings()
         }
 
         binding.fab.setImageDrawable(icon)
+
+        // Prevent the FAB from disappearing when the Coordinator Layout is fully collapsed
+        val layoutParams = binding.fab.layoutParams as CoordinatorLayout.LayoutParams
+        var fabBehavior = layoutParams.behavior as? FloatingActionButton.Behavior
+        fabBehavior?.let {
+            it.isAutoHideEnabled = false
+        } ?: run {
+            fabBehavior = FloatingActionButton.Behavior()
+            fabBehavior?.isAutoHideEnabled = false
+            layoutParams.behavior = fabBehavior
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
