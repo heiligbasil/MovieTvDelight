@@ -32,7 +32,7 @@ class BrowseFragment : OptionsMenuFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_browse, container, false)
         return binding.root
