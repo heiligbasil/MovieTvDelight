@@ -34,10 +34,10 @@ class BrowseViewModel(
 
     fun setTabChoice(tabPosition: Int) {
         selectedTabPosition = tabPosition
-        if (tabPosition == 0)
-            remoteMovies = remoteRepository.getMtrMutableLiveData()
+        remoteMovies = if (tabPosition == 0)
+            remoteRepository.getMtrMutableLiveData()
         else
-            remoteMovies = remoteRepository.getTtrMutableLiveData()
+            remoteRepository.getTtrMutableLiveData()
     }
 
     fun storeMovies() = viewModelScope.launch {
