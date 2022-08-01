@@ -102,6 +102,7 @@ class SearchFragment : OptionsMenuFragment() {
         })
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // Load state if it exists to preserve Recycler View position
