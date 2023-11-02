@@ -10,7 +10,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.heiligbasil.movietvdelight.model.remote.Retrofit
 import com.squareup.picasso.Picasso
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "movie_table")

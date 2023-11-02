@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.heiligbasil.movietvdelight.model.entities.MovieEssentials
 
-@Database(entities = [MovieEssentials::class], version = 1)
+@Database(entities = [MovieEssentials::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
     abstract val movieDao: MovieDao
 
