@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.heiligbasil.movietvdelight.R
-import kotlinx.android.synthetic.main.fragment_about.*
+import com.heiligbasil.movietvdelight.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +37,10 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val binding = FragmentAboutBinding.inflate(this.layoutInflater)
+
         // Start the pulsating animation of the gradient
-        val animatedBackground = fragment_about_parent_layout.background as AnimationDrawable
+        val animatedBackground = binding.fragmentAboutParentLayout.background as AnimationDrawable
         animatedBackground.setEnterFadeDuration(2000)
         animatedBackground.setExitFadeDuration(3000)
         animatedBackground.start()

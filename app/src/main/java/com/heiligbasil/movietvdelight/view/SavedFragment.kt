@@ -16,7 +16,6 @@ import com.heiligbasil.movietvdelight.model.local.LocalRepository
 import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.viewmodel.SavedViewModel
 import com.heiligbasil.movietvdelight.viewmodel.SavedViewModelFactory
-import kotlinx.android.synthetic.main.fragment_saved.*
 
 class SavedFragment : OptionsMenuFragment() {
 
@@ -44,7 +43,7 @@ class SavedFragment : OptionsMenuFragment() {
         binding.lifecycleOwner = this
 
         // Refresh the Recycler View upon a swipe motion
-        saved_swipe_refresh_layout.setOnRefreshListener {
+        binding.savedSwipeRefreshLayout.setOnRefreshListener {
             initRecyclerView()
         }
 
@@ -73,7 +72,7 @@ class SavedFragment : OptionsMenuFragment() {
             adapter.notifyDataSetChanged()
 
             // Hide the spinning swipe-refresh icon
-            saved_swipe_refresh_layout.isRefreshing = false
+            binding.savedSwipeRefreshLayout.isRefreshing = false
         })
     }
 }

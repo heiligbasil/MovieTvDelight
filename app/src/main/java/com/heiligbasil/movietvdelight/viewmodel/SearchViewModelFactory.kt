@@ -10,7 +10,7 @@ class SearchViewModelFactory(
     private val remoteRepository: RemoteRepository
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             return SearchViewModel(localRepository, remoteRepository) as T
         }

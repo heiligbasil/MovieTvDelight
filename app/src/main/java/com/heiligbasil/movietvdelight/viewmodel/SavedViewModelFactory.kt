@@ -8,7 +8,7 @@ import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 class SavedViewModelFactory(private val localRepository: LocalRepository) :
     ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SavedViewModel::class.java)) {
             return SavedViewModel(localRepository) as T
         }

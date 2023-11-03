@@ -9,14 +9,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.heiligbasil.movietvdelight.R
+import com.heiligbasil.movietvdelight.databinding.ActivityMainBinding
 import com.heiligbasil.movietvdelight.model.entities.Utils
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(this.layoutInflater)
+        val view = binding.root
         setTheme(R.style.AppTheme)
-        setContentView(R.layout.activity_main)
+        setContentView(view)
 
         val navController = findNavController(R.id.nav_host_fragment)
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
@@ -24,9 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.nav_about || destination.id == R.id.nav_details) {
-                bottom_navigation_view.visibility = View.GONE
+                binding.bottomNavigationView.visibility = View.GONE
             } else {
-                bottom_navigation_view.visibility = View.VISIBLE
+                binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
 
@@ -40,10 +46,10 @@ class MainActivity : AppCompatActivity() {
             2 -> R.id.nav_saved
             else -> R.id.nav_browse
         }
-        val navHostFragment = nav_host_fragment as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val graphInflater = navHostFragment.navController.navInflater
         val navGraph = graphInflater.inflate(R.navigation.nav_graph)
-        navGraph.startDestination = layoutDestination
+        navGraph.setStartDestination(layoutDestination)
         navController.graph = navGraph
     }
 }

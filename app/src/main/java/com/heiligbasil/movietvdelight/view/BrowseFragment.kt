@@ -20,7 +20,6 @@ import com.heiligbasil.movietvdelight.model.local.MovieDatabase
 import com.heiligbasil.movietvdelight.model.remote.RemoteRepository
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModel
 import com.heiligbasil.movietvdelight.viewmodel.BrowseViewModelFactory
-import kotlinx.android.synthetic.main.fragment_browse.*
 
 class BrowseFragment : OptionsMenuFragment() {
 
@@ -49,7 +48,7 @@ class BrowseFragment : OptionsMenuFragment() {
         binding.lifecycleOwner = this
         waitForTransition(binding.browseRecyclerViewContainer)
 
-        browse_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.browseTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 onTabSelected(tab)
             }
@@ -67,10 +66,10 @@ class BrowseFragment : OptionsMenuFragment() {
         })
 
         // Ensure a good tab state upon creation
-        browse_tab_layout.selectTab(browse_tab_layout.getTabAt(viewModel.selectedTabPosition))
+        binding.browseTabLayout.selectTab(binding.browseTabLayout.getTabAt(viewModel.selectedTabPosition))
 
         // Re-initialize the Recycler View when the view is swiped
-        browse_swipe_refresh_layout.setOnRefreshListener {
+        binding.browseSwipeRefreshLayout.setOnRefreshListener {
             initRecyclerView()
         }
 
@@ -117,7 +116,7 @@ class BrowseFragment : OptionsMenuFragment() {
             adapter.notifyDataSetChanged()
 
             // Turn off the spinning loading icon
-            browse_swipe_refresh_layout.isRefreshing = false
+            binding.browseSwipeRefreshLayout.isRefreshing = false
         })
     }
 

@@ -10,7 +10,7 @@ class BrowseViewModelFactory(
     private val remoteRepository: RemoteRepository
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BrowseViewModel::class.java)) {
             return BrowseViewModel(localRepository, remoteRepository) as T
         }
