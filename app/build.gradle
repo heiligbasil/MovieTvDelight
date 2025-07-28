@@ -73,7 +73,7 @@ dependencies {
     ksp "androidx.room:room-compiler:$room_version"
 
     // Coroutines
-    def coroutines_version = '1.10.1'
+    def coroutines_version = '1.10.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
