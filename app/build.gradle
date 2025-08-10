@@ -10,7 +10,7 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    compileSdk 36
+    compileSdkVersion = 36
 
     defaultConfig {
         applicationId "com.heiligbasil.movietvdelight"
